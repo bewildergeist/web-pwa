@@ -1,6 +1,32 @@
 const template = document.querySelector("#template").content;
 const boxes = document.querySelector("#boxes");
 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/sw.js").then(
+      function (registration) {
+        // Registration was successful
+        console.log(
+          "ServiceWorker registration successful with scope: ",
+          registration.scope
+        );
+      },
+      function (err) {
+        // registration failed :(
+        console.log("ServiceWorker registration failed: ", err);
+      }
+    );
+  });
+}
+
+let counts = 0;
+
+navigator.serviceWorker.addEventListener("message", (e) => {
+  console.log(e.data);
+  counts++;
+  document.querySelector("#request-count").innerHTML = counts;
+});
+
 for (const fileType of ["text/css", "text/html", "application/json"]) {
   // Clone the template for each box
   const box = template.cloneNode(true);

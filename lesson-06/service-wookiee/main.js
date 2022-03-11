@@ -1,5 +1,21 @@
 const template = document.querySelector("#template").content;
 const boxes = document.querySelector("#boxes");
+const count = document.querySelector("#request-count");
+let counts = 0;
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+
+navigator.serviceWorker.addEventListener("message", (e) => {
+  console.log(e.data);
+  counter();
+});
+
+function counter() {
+  counts++;
+  count.innerHTML = counts;
+}
 
 for (const fileType of ["text/css", "text/html", "application/json"]) {
   // Clone the template for each box

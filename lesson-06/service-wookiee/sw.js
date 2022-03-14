@@ -1,3 +1,17 @@
+const cacheV = "v1";
+
+self.addEventListener('install', async (event) => {
+    const preCache = async () => {
+        const cache = await caches.open('cacheV');
+        return cache.addAll([
+            '/',
+            '/chewie.jpg',
+            '/style.css',
+            'main.js'
+        ])
+    }
+  event.waitUntil(preCache());
+});
 
 self.addEventListener('fetch', async (event) => {
     console.log(event);
@@ -30,5 +44,14 @@ self.addEventListener('fetch', async (event) => {
         });
         event.respondWith(response);
     }
+});
+
+self.addEventListener('fetch', async (event) => {
+    event.respondWith(
+        caches.match(event.request).then(cachedResponse => {
+                return cachedResponse || fetch(event.request);
+        }
+    )
+    )
 });
 

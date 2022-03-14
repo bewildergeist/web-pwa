@@ -10,18 +10,16 @@
 </head>
 
 <body class="bg-gray-50 p-4">
-    <button id="worker" class="p-4 bg-red-500 rounded text-white">Do hard work</button>
     <button id="clicky" class="p-4 bg-blue-500 rounded text-white">See if you can click me</button>
+    <button id="worker" class="p-4 bg-red-500 rounded text-white">Do hard work</button>
     <script>
-        const hardWorkButton = document.querySelector("#worker")
-        const clickButton = document.querySelector("#clicky");
+        var myWorker = new Worker('worker.js');
 
-        function doHardWork() {
-            let start = Date.now();
-            console.log("Blocking...");
-            while (Date.now() < start + 3000) { }
-            console.log("Unblocked!")
+        function handleWorkerButtonClick() {
+            myWorker.postMessage('Hej med dig');
         }
+        const clickButton = document.querySelector("#clicky");
+        const workerButton = document.querySelector("#worker");
 
         let clickCount = 0;
         function handleButtonClick(event) {
@@ -30,7 +28,7 @@
         }
 
         clickButton.addEventListener("click", handleButtonClick);
-        hardWorkButton.addEventListener("click", doHardWork);
+        workerButton.addEventListener("click", handleWorkerButtonClick);
     </script>
 </body>
 

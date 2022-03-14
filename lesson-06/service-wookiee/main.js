@@ -22,7 +22,6 @@ if ("serviceWorker" in navigator) {
 let counts = 0;
 
 navigator.serviceWorker.addEventListener("message", (e) => {
-  console.log(e.data);
   counts++;
   document.querySelector("#request-count").innerHTML = counts;
 });

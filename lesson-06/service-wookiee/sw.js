@@ -49,16 +49,16 @@ self.addEventListener('fetch', async (event) => {
 self.addEventListener('fetch', async (event) => {
     event.respondWith(
         //*****CACHE FIRST
-        //     caches.match(event.request).then(cachedResponse => {
-        //             return cachedResponse || fetch(event.request);
-        //     }
-        // )
+            caches.match(event.request).then(cachedResponse => {
+                    return cachedResponse || fetch(event.request);
+            }
+        )
 
         //*****NETWORK FIRST
-        fetch(event.request).catch(error => {
-                return caches.match(event.request);
-            })
-        )
+        // fetch(event.request).catch(error => {
+        //         return caches.match(event.request);
+        //     })
+        // )
 
         //*****STALE WHILE REVALIDATE
         // caches.match(event.request).then(cachedResponse => {
@@ -72,6 +72,6 @@ self.addEventListener('fetch', async (event) => {
         //         return cachedResponse || networkFetch;
         //     }
         // )
-        //)
+        )
 });
 

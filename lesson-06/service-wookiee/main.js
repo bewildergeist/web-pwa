@@ -1,6 +1,10 @@
 const template = document.querySelector("#template").content;
 const boxes = document.querySelector("#boxes");
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+
 for (const fileType of ["text/css", "text/html", "application/json"]) {
   // Clone the template for each box
   const box = template.cloneNode(true);

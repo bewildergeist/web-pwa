@@ -46,3 +46,15 @@ for (const fileType of ["text/css", "text/html", "application/json"]) {
   });
   boxes.appendChild(box);
 }
+
+function Increase(){
+  let count = document.querySelector('#request-count');
+  let clickCount = Number(count.textContent);
+  clickCount++;
+  count.textContent=clickCount;
+}
+
+navigator.serviceWorker.register('sw.js');
+navigator.serviceWorker.addEventListener('message',Increase);
+
+

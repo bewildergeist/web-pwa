@@ -577,7 +577,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-yellow-100 {
   --tw-bg-opacity: 1;
-  background-color: rgb(254 249 195 / var(--tw-bg-opacity));
+  background-color: rgb(154 249 195 / var(--tw-bg-opacity));
 }
 
 .bg-yellow-700 {

@@ -4,12 +4,7 @@ const CACHE_NAME = "v1";
 self.addEventListener("install", async (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll([
-        "./index.html",
-        "./chewie.jpg",
-        "./main.js",
-        "./style.css",
-      ]);
+      return cache.addAll(["/", "/chewie.jpg", "/main.js", "/style.css"]);
     })
   );
 });
@@ -71,8 +66,14 @@ self.addEventListener("fetch", async (event) => {
 // Cache-first strategy for other resources
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
+    self.caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        console.log({ cachedResponse });
+        return cachedResponse;
+      } else {
+        console.log(`Request for ${event.request.url} failed, making a fetch`);
+        return fetch(event.request);
+      }
     })
   );
 });
